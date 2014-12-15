@@ -84,8 +84,6 @@ void setup() {
 
   softSerial.write(131);  // safe mode
 
-
-  ypos = r;               // shift so the initial possition is directly beneath the LIDAR
 }
 
 void loop() {
@@ -96,7 +94,7 @@ void loop() {
 
   if (abs(xd) > 0)
     theta += (xd + 0.78)/r;               // bias in the A5020 sensor/yaw of sensor relative to forward movement. This might vary and must be calibrated.
-  //Serial.println(X);
+
   xpos += - yd*sin(theta);
   ypos += yd*cos(theta);
   theta_int = 1000*theta;                 // rad*1000
@@ -108,7 +106,7 @@ void loop() {
     delay(1);
   }
 
-  if(turnflag == true && cmd[0] > NULL){
+  if(turnflag == true && cmd[0] > NULL){  // While turning the system will save next instruction requested and then execute it
     after_turn = cmd;
     cmd = "";
   }
@@ -137,7 +135,7 @@ void loop() {
     Serial.print(String(ypos/20));
     Serial.print('#');                
     Serial.print(String(theta_int));      
-    Serial.print('\n');               // this needs to be done for the Linux system does not use /r like windows 
+    Serial.print('\n');                 // this needs to be done for the Linux system does not use /r like windows 
     lastPosTime = millis();
   }
 
@@ -188,14 +186,14 @@ void loop() {
   }
 
 
- cmd = "";          // Clear command string
+ cmd = "";                                    // Clear command string
 
   // Stopping TLX and TRX
-  if(angle != 0 && (angle - abs(theta_reference - theta_int) ) < 0  ){ // | óskgildi | - | delta(theta) |  < 0 rad
+  if(angle != 0 && (angle - abs(theta_reference - theta_int) ) < 0  ){  // desired value - | delta(theta) |  < 0 rad
     goForward(0); // Stop
     angle = 0;
     turnflag = false;
-    cmd = after_turn;
+    cmd = after_turn;                        // System executes pending instruction
     after_turn = "";
   }
 
