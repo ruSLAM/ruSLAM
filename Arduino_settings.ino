@@ -28,9 +28,9 @@ long int lastTimeD = 0;
 long int lastTimeA = 0;
 long int lastPosTime = 0;
 
-const double r = 112.5*20;  // [mouse units] radius of setup must be verified 230*20 gamli 1125*2 new
-String cmd = "";               // command
-String tmpString;         // for substring 
+const double r = 112.5*20;      // [mouse units] radius of setup 112.5mm must be verified
+String cmd = "";                // command
+String tmpString;               // for substring 
 
 String after_turn = "";
 bool turnflag = false;
@@ -42,14 +42,14 @@ bool turnflag = false;
 #define rxPin 10
 #define txPin 11
 
-int inByteH; // High byte from the roomba, in most cases we cannot use it
-int inByteL; // Low byte from the roomba, this gives us the value
+int inByteH;        // High byte from the roomba, in most cases we cannot use it
+int inByteL;        // Low byte from the roomba, this gives us the value
 int value;
-int distance = 0; // Distance from the roomba odometry
-int angle = 0; // Angle input from the command string
-int ang = 0; // Angle from the roomba odometry
-int disPack = 19; // The Packet for distance data from roomba
-int angPack = 20; // The Packet for angle data from roomba
+int distance = 0;   // Distance from the roomba odometry
+int angle = 0;      // Angle input from the command string
+int ang = 0;        // Angle from the roomba odometry
+int disPack = 19;   // The Packet for distance data from roomba
+int angPack = 20;   // The Packet for angle data from roomba
 
 
 // Set up a new software serial port:
