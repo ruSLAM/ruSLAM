@@ -19,8 +19,6 @@
 
 char xd,yd,tmp;
 byte frame[256];
-long X = 0;
-long Y = 0;
 bool FirstSend = false;
 long xpos = 0, ypos = 0;
 double theta = 0;
@@ -87,7 +85,7 @@ void setup() {
   softSerial.write(131);  // safe mode
 
 
-  ypos = 300*20;          // shift
+  ypos = r;               // shift so the initial possition is directly beneath the LIDAR
 }
 
 void loop() {
@@ -97,7 +95,7 @@ void loop() {
   dumpDelta(xd,yd);
 
   if (abs(xd) > 0)
-    theta += (xd + 0.78)/r;                          // rad
+    theta += (xd + 0.78)/r;               // bias in the A5020 sensor/yaw of sensor relative to forward movement. This might vary and must be calibrated.
   //Serial.println(X);
   xpos += - yd*sin(theta);
   ypos += yd*cos(theta);
