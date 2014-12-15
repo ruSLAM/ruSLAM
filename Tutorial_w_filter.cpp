@@ -35,9 +35,9 @@ int main(){
 	LIDAR Radar;								// Radar object handles all communications with the LIDAR
 	Filter Filter;								// This is a test filter and is only here to show an example of how to implement one
 
-	Radar.start();								// Sends the command to turn on the laser of the LIDAR and to start taking measurements 
-	Radar.getSwipe();							// getSwipe sends asks for a one swipe from the LIDAR and stores it in a private variable. To get the data use the Radar.getData(); command
-	Radar.flushLidar();							// Sometimes the first swipe from the LDAR is incorrect so this command dumps the data from the first swipe
+	Radar.Start();								// Sends the command to turn on the laser of the LIDAR and to start taking measurements 
+	Radar.GetSwipe();							// getSwipe sends asks for a one swipe from the LIDAR and stores it in a private variable. To get the data use the Radar.getData(); command
+	Radar.FlushLidar();							// Sometimes the first swipe from the LDAR is incorrect so this command dumps the data from the first swipe
 
 	Roomba.Boot();								// This command boots up the Link between the Raspberry and the Arduino 
 	Roomba.DriveForward();						// Drives the Roomba forward until told otherwise
@@ -97,15 +97,15 @@ int main(){
 		// Sets the position in to the correct parameters
 		Xpos = Roomba.Xpos();					// X coordinate extracted from Pos
 		Ypos = Roomba.Ypos();					// Y coordinate extracted from Pos
-		Angle = Roomba.angle();					// yaw of the Create extracted from Pos
+		Angle = Roomba.Angle();					// yaw of the Create extracted from Pos
 
 		/*
 			Here new data will be added to a map every 0.1m the platform moves 
 		*/
 		if(abs(LastLength - sqrt(abs(Xpos)^2 + abs(Ypos)^2)) > 100 || Yflag)
 		{
-			Radar.getSwipe();								//	Tells the LIDAR to send the data from the last swipe
-			DataString = Radar.getData();					//	Gets the Data from the private variable 
+			Radar.GetSwipe();								//	Tells the LIDAR to send the data from the last swipe
+			DataString = Radar.GetData();					//	Gets the Data from the private variable 
 			Radar.Decoder(Data,DataString);					//	Decodes the data from getData
 
 			Filter.SetToCord(Cord,Data,Xpos,Ypos,Angle);	// Sets the data points to Cartesian coordinates
@@ -123,7 +123,7 @@ int main(){
 			*/
 			if(SwipeCounter > 3)
 			{
-				Filter.FilterOute(Map,2);					
+				Filter.FilterOut(Map,2);					
 				SwipeCounter = 0;
 			}
 		}

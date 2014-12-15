@@ -78,7 +78,7 @@
 		//FirstFlag = false;
 	}
 
-	void Filter::FilterOute(int Map[][5000] , int Cluster)
+	void Filter::FilterOut(int Map[][5000] , int Cluster)
 	{
 		for (int i = 0; i < count; ++i)
 			{
