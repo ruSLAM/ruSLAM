@@ -12,17 +12,17 @@
 	}
 	void Filter::SetToCord(int MapCord[][683], int data[683], int x, int y, double ang)
 	{
-		double angel[683];
+		double angle[683];
 
 		for (int i = 0; i < 683; ++i)
 		{
-			angel[i] = -2.0944	+ (0.0061 * i);
+			angle[i] = -2.0944	+ (0.0061 * i);
 		}
 
 		for(int	i = 0 ; i < 683; i++)
 		{
-			 MapCord[0][i] = (((data[i] * cos(angel[i] - ang))) + y);
-			 MapCord[1][i] = (((data[i] * sin(angel[i] - ang))) + x);
+			 MapCord[0][i] = (data[i] * cos(angle[i] + ang + 3.1416/2) ) + x;
+			 MapCord[1][i] = (data[i] * sin(angle[i] + ang + 3.1416/2) ) + y;
 		}
 	}
 	void Filter::SetMap(int MapCord[][683], int Map[][5000], int Grid)
@@ -86,6 +86,7 @@
 				 {
 					Map[0][i] = 0;
 					Map[1][i] = 0;
+				    Map[2][i] = 0;
 				 } 
 			}
 	}
