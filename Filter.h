@@ -18,7 +18,7 @@ class Filter
 		~Filter();
 		void SetToCord(int MapCord[][683], int data[683], int x, int y, double ang);
 		void SetMap(int MapCord[][683], int Map[][5000], int Grid);
-		void FilterOute(int Map[][5000], int Cluster);
+		void FilterOut(int Map[][5000], int Cluster);
 		void SaveMap(int Map[][5000]);
 };
 #endif
