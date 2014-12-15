@@ -9,35 +9,23 @@ ArduinoCom::~ArduinoCom()
 {
 	Data.close();
 	Comand.close();
-}
+}	
 
 string ArduinoCom::GetPos()
 {
 	Comand << "XYA" << endl;
-
-	alarm(1);
 	getline(Data,Pos);
-	alarm(0);
+
 
 	if(Pos[0] == '#')
-	{
+	{ 
 		cutPos();
 		return Pos;
-	}
-	else
+	}	
+	else 
 		cout << "No data in Buffer" << endl;
 
 	return "";
-}
-
-void ArduinoCom::Boot()
-{
-	cout << "BOOTING RUMBA" << endl;
-	sleep(5);
-	Comand << "RST" << endl;
-	sleep(1);
-	GetPos();
-	sleep(1);
 }
 
 int ArduinoCom::Xpos()
@@ -50,21 +38,28 @@ int ArduinoCom::Ypos()
 	return ypos;
 }
 
-double ArduinoCom::angle()
+double ArduinoCom::Angle()
 {
 	return theta;
 }
 
+void ArduinoCom::Boot()
+{
+	cout << "BOOTING RUMBA" << endl;
+	sleep(5);
+	Comand << "RST" << endl;
+	sleep(1);
+	GetPos();
+	sleep(1);
+}
 
 void ArduinoCom::DriveForward()
 {
 	Comand << "DFW" << endl;
-	sleep(1);
 }
 void ArduinoCom::DriveBack()
 {
 	Comand << "DBW" << endl;
-	sleep(1);
 }
 void ArduinoCom::TurnLeft(int angle)
 {
@@ -98,19 +93,13 @@ void ArduinoCom::ResetPos()
 
 string ArduinoCom::intToString(int number)
 {
-	if(number > 360)
-	{
-		cout << "ERROR can not turn more thenn 360° " << endl;
-		return "";
-	}
-
-	string s = "";
+		string s = "";
 	 int b,c ;
 	 char a[3] ;
 
 	 for (int i = 0; i < 3; ++i)
 	 {
-		a[i] = '0';
+		a[i] = '0';	 	
 	 }
 
 	 if(number < 10)
@@ -142,10 +131,10 @@ string ArduinoCom::intToString(int number)
 void ArduinoCom::cutPos()
 {
 	string cutString = "";
-	int Poslenth = Pos.length(); 							// length of data
-	int flag = 1;
+int Poslenth = Pos.length(); 							// length of data
+int flag = 1;
 
-		for(int i = 1; i < Poslenth ; i++)
+		for(int i = 0; i < Poslenth ; i++)
 		{
          		if(Pos[i] != '#')
 			{
@@ -164,6 +153,6 @@ void ArduinoCom::cutPos()
 			}
                 }
 
-        theta = atoi(cutString.c_str())/1000.0;              			// Theta is [int], rad*1000
+        theta = atoi( cutString.c_str() )/1000.0;              			// Theta is [int], rad*1000
 
 }

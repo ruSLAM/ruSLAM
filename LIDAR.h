@@ -26,11 +26,10 @@ class LIDAR
 
 		LIDAR();
 		~LIDAR();
-		int test();
-		void flushLidar();
-		string getData();
-		void start();
-		void getSwipe();
+		void FlushLidar();
+		string GetData();
+		void Start();
+		void GetSwipe();
 		void Decoder(int Data[], string Data_string);  
 };
 #endif

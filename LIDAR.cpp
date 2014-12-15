@@ -24,7 +24,7 @@ using namespace std;
 
 
 
-	void LIDAR::flushLidar()
+	void LIDAR::FlushLidar()
 	{
 		string DataString = "";
 		int lines = 0;
@@ -49,7 +49,7 @@ using namespace std;
 
 	}
 	
-	string LIDAR::getData()
+	string LIDAR::GetData()
 	{
 
 		int lines = 0;
@@ -57,20 +57,20 @@ using namespace std;
 		string DataColector = "";
 
 		while ( LidarData.good() )
-	{
-		getline(LidarData,DataString);
+		{
+			getline(LidarData,DataString);
 
-		if (DataString == "" && lines > 5)				// Getline goes weird when the last line is empty
-			break;
+			if (DataString == "" && lines > 5)				// Getline goes weird when the last line is empty
+				break;
 
-		if (DataString.length() > 64)
-			DataString = DataString.substr(0,64); 			// start at 0, length 64 cut the checksum off
+			if (DataString.length() > 64)
+				DataString = DataString.substr(0,64); 			// start at 0, length 64 cut the checksum off
 
-		if (lines > 2)	 						// first 3 lines are echo and checksums
-			DataColector += DataString; 				// collect the lines in to one variable for decoding
+			if (lines > 2)			 						// first 3 lines are echo and checksums
+				DataColector += DataString; 				// collect the lines in to one variable for decoding
 
-		lines++;
-		DataString = "";
+			lines++;
+			DataString = "";
 
 		}
 		return DataColector;
@@ -97,12 +97,12 @@ using namespace std;
 
 
 	}
-void LIDAR::start()
+void LIDAR::Start()
 {
 		LidarComand << TurnOn << endl; 						// Start the Lidar
 
 }
-void LIDAR::getSwipe()
+void LIDAR::GetSwipe()
 {
 		LidarComand << Getswipe << endl; 	
 }

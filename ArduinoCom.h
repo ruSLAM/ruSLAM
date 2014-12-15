@@ -25,7 +25,7 @@ class ArduinoCom
 		string GetPos();
 		int Xpos();
 		int Ypos();
-		double angle();
+		double Angle();
 		void DriveForward();
 		void DriveBack();
 		void TurnLeft(int angle);
