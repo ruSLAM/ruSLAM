@@ -28,7 +28,7 @@ long int lastTimeD = 0;
 long int lastTimeA = 0;
 long int lastPosTime = 0;
 
-const double r = 112.5*20;      // [mouse units] radius of setup 112.5mm must be verified
+const double r = 108*20;      // [mouse units] radius of setup 112.5mm must be verified
 String cmd = "";                // command
 String tmpString;               // for substring 
 
@@ -92,8 +92,10 @@ void loop() {
   // xd is roomba CCW
   dumpDelta(xd,yd);
 
-  if (abs(xd) > 0)
+  if (abs(xd) > 0 && turnflag == false)
     theta += (xd + 0.78)/r;               // bias in the A5020 sensor/yaw of sensor relative to forward movement. This might vary and must be calibrated.
+  else if (abs(xd) > 0 && turnflag == true)
+    theta += (xd)/r;                      // The bias does not apply when turning on the spot
 
   xpos += - yd*sin(theta);
   ypos += yd*cos(theta);
