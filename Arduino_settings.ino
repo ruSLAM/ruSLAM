@@ -29,7 +29,8 @@ long int lastTimeD = 0;
 long int lastTimeA = 0;
 long int lastPosTime = 0;
 
-const double r = 108*20;      // [mouse units] radius of setup 112.5mm must be verified
+const int conv = 17;            // Mouse units per mm
+const double r = 127.06*conv;   // [mouse units] radius of setup 127.05mm must be verified
 String cmd = "";                // command
 String tmpString;               // for substring 
 
@@ -119,9 +120,9 @@ void loop() {
                                                           // and gives us X and Y coordinates and angle.
 
     Serial.print('#');                // Start line feed
-    Serial.print(String(xpos/20));
+    Serial.print(String(xpos/conv));
     Serial.print('#');                
-    Serial.print(String(ypos/20));
+    Serial.print(String(ypos/conv));
     Serial.print('#');                
     Serial.print(String(theta_int));      
     Serial.print('\n');               // this needs to be done for the Linux system does not use /r like windows 
@@ -132,10 +133,10 @@ void loop() {
 
   if((millis() - lastPosTime) > 900 && FirstSend)
   {
-      Serial.print('#');                // Start line feed
-    Serial.print(String(xpos/20));
+    Serial.print('#');                // Start line feed
+    Serial.print(String(xpos/conv));
     Serial.print('#');                
-    Serial.print(String(ypos/20));
+    Serial.print(String(ypos/conv));
     Serial.print('#');                
     Serial.print(String(theta_int));      
     Serial.print('\n');                 // this needs to be done for the Linux system does not use /r like windows 
