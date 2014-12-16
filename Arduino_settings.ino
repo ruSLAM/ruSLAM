@@ -19,6 +19,7 @@
 
 char xd,yd,tmp;
 byte frame[256];
+bool bull = false;
 bool FirstSend = false;
 long xpos = 0, ypos = 0;
 double theta = 0;
@@ -356,12 +357,17 @@ void turnR(){
 
 void getDist(){
 // Ths function gets the distance from the roomba, however it is not used in this script
+  if (bull == false){
 
- softSerial.write((byte)142); // requests the OI to send a packet of
-                              // sensor data bytes
- softSerial.write((byte)19); // request distance sensor value specifically
- delay(40); // poll sensor every 40 ms
- if (softSerial.available() > 0 && (millis()-lastTimeD>40)) {
+     softSerial.write((byte)142); // requests the OI to send a packet of
+                                  // sensor data bytes
+     softSerial.write((byte)19); // request distance sensor value specifically
+
+     bull = true;
+  }
+
+  if (softSerial.available() > 0 && (millis()-lastTimeD>40)) {
+  bull = false;
   lastTimeD = millis();
   inByteH = softSerial.read();
   inByteL = softSerial.read();
@@ -369,18 +375,24 @@ void getDist(){
  }
 }
 
+
 void getAng(){
   // Ths function gets the angle from the roomba, however it is not used in this script
- softSerial.write((byte)142); // requests the OI to send a packet of
- // sensor data bytes
- softSerial.write((byte)20); // request angle sensor value specifically
- // poll sensor every 40 ms
+  if (bull == false){
+     softSerial.write((byte)142); // requests the OI to send a packet of
+     // sensor data bytes
+     softSerial.write((byte)20); // request angle sensor value specifically
+     // poll sensor every 40 ms
+     bull = true;
+  }
+
  if (softSerial.available() > 0 && (millis()-lastTimeA>40)) {
+  bull = false;
   lastTimeA = millis();
   inByteH = softSerial.read();
   inByteL = softSerial.read();
   if (inByteL < 50) // filter bad data
-    ang += inByteL;
+    ang += inByteL;   //degrees
  }
 }
 
