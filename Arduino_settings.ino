@@ -19,7 +19,7 @@
 
 char xd,yd,tmp;
 byte frame[256];
-bool bull = false;
+bool bull = false;//
 bool FirstSend = false;
 long xpos = 0, ypos = 0;
 double theta = 0;
